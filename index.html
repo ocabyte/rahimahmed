@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahim Ahmed | Cinematic Video Editor</title>
+    <meta name="description" content="Portfolio of Rahim Ahmed, a professional Video Editor and Motion Graphics Artist based in Dhaka, Bangladesh.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Oswald (Cinematic headers) and Inter (Clean body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cinematic: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        film: {
+                            black: '#0a0a0a',
+                            dark: '#121212',
+                            card: '#1a1a1a',
+                            teal: '#219ebc', 
+                            orange: '#fb8500', 
+                            gold: '#d4af37'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'noise': "url('https://grainy-gradients.vercel.app/noise.svg')",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fb8500;
+        }
+
+        /* Cinematic Text Glow */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(251, 133, 0, 0.5);
+        }
+
+        /* Image Masking for Hero */
+        .hero-mask {
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* Fade In Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Hover Effects */
+        .hover-card-zoom {
+            overflow: hidden;
+        }
+        .hover-card-zoom img {
+            transition: transform 0.5s ease;
+        }
+        .hover-card-zoom:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Video Container Aspect Ratio */
+        .aspect-video-custom {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+        .aspect-video-custom iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-film-black text-gray-300 font-sans antialiased overflow-x-hidden selection:bg-film-orange selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-film-black/90 backdrop-blur-md border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <h1 class="font-cinematic text-3xl font-bold tracking-widest text-white uppercase">
+                        Rahim<span class="text-film-orange">.Edit</span>
+                    </h1>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="font-cinematic tracking-wide hover:text-film-orange transition-colors px-3 py-2 text-sm font-medium text-white">HOME</a>
+                        <a href="#about" class="font-cinematic tracking-wide hover:text-film-orange transition-colors px-3 py-2 text-sm font-medium">ABOUT</a>
+                        <a href="#showreel" class="font-cinematic tracking-wide hover:text-film-orange transition-colors px-3 py-2 text-sm font-medium">SHOWREEL</a>
+                        <a href="#projects" class="font-cinematic tracking-wide hover:text-film-orange transition-colors px-3 py-2 text-sm font-medium">PROJECTS</a>
+                        <a href="#services" class="font-cinematic tracking-wide hover:text-film-orange transition-colors px-3 py-2 text-sm font-medium">SERVICES</a>
+                        <a href="#contact" class="px-5 py-2 rounded-full border border-film-orange text-film-orange hover:bg-film-orange hover:text-white transition-all duration-300 font-cinematic tracking-wide text-sm">HIRE ME</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-film-dark border-t border-white/10 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1 sm:px-3 text-center">
+                <a href="#home" class="block hover:text-film-orange px-3 py-3 rounded-md text-base font-cinematic tracking-widest">HOME</a>
+                <a href="#about" class="block hover:text-film-orange px-3 py-3 rounded-md text-base font-cinematic tracking-widest">ABOUT</a>
+                <a href="#showreel" class="block hover:text-film-orange px-3 py-3 rounded-md text-base font-cinematic tracking-widest">SHOWREEL</a>
+                <a href="#projects" class="block hover:text-film-orange px-3 py-3 rounded-md text-base font-cinematic tracking-widest">PROJECTS</a>
+                <a href="#services" class="block hover:text-film-orange px-3 py-3 rounded-md text-base font-cinematic tracking-widest">SERVICES</a>
+                <a href="#contact" class="block text-film-orange font-bold px-3 py-3 rounded-md text-base font-cinematic tracking-widest">GET IN TOUCH</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Gradient / Noise -->
+        <div class="absolute inset-0 bg-gradient-radial from-film-card via-film-black to-black opacity-80 z-0"></div>
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 z-0 mix-blend-overlay pointer-events-none"></div>
+
+        <!-- Floating Elements (Abstract Cinematic Lights) -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-film-teal/20 rounded-full blur-[120px] animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-film-orange/20 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="container mx-auto px-4 z-10 grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Text Content -->
+            <div class="text-center md:text-left order-2 md:order-1 reveal">
+                <div class="inline-block px-3 py-1 mb-4 border border-film-teal/50 rounded-full bg-film-teal/10">
+                    <span class="text-film-teal text-xs font-bold tracking-[0.2em] uppercase">Based in Dhaka, Bangladesh</span>
+                </div>
+                <h1 class="font-cinematic text-5xl md:text-7xl font-bold leading-tight text-white mb-6">
+                    SCULPTING <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-film-orange to-red-600 text-glow">VISUAL STORIES</span>
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl mb-8 font-light max-w-lg mx-auto md:mx-0">
+                    Professional Video Editor & Motion Designer. Transforming raw footage into cinematic masterpieces with precision and passion.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#showreel" class="group flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-sm font-cinematic font-bold tracking-wider hover:bg-film-orange hover:text-white transition-all duration-300">
+                        <i data-lucide="play-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                        WATCH SHOWREEL
+                    </a>
+                    <a href="#projects" class="flex items-center justify-center gap-2 border border-white/20 text-white px-8 py-4 rounded-sm font-cinematic font-bold tracking-wider hover:border-film-orange hover:text-film-orange transition-all duration-300">
+                        VIEW PROJECTS
+                    </a>
+                </div>
+                
+                <!-- Stats -->
+                <div class="mt-12 flex items-center justify-center md:justify-start gap-8 border-t border-white/10 pt-8">
+                    <div>
+                        <span class="block text-2xl font-bold text-white font-cinematic">5+</span>
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">Years Exp.</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold text-white font-cinematic">100+</span>
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">Projects</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold text-white font-cinematic">20M+</span>
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">Views</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="order-1 md:order-2 flex justify-center relative reveal">
+                <!-- Decorative Frame -->
+                <div class="absolute inset-0 border-2 border-film-orange/30 translate-x-4 translate-y-4 z-0 hidden md:block"></div>
+                <!-- Image -->
+                <div class="relative w-64 h-64 md:w-96 md:h-96 rounded-full md:rounded-sm overflow-hidden shadow-2xl shadow-film-orange/20 z-10 aspect-square">
+                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                         alt="Rahim Ahmed Video Editor" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                    <!-- Overlay Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-film-black/60 to-transparent"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block text-gray-500">
+            <i data-lucide="chevron-down" class="w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- Brands / Trusted By -->
+    <div class="bg-film-dark border-y border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-center text-xs text-gray-600 uppercase tracking-[0.3em] mb-6 font-cinematic">Tools I Dominate</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Using Text as logos for simplicity, normally SVGs -->
+                <span class="text-xl font-bold text-white flex items-center gap-2"><i data-lucide="video" class="w-5 h-5 text-purple-500"></i> Premiere Pro</span>
+                <span class="text-xl font-bold text-white flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5 text-blue-500"></i> After Effects</span>
+                <span class="text-xl font-bold text-white flex items-center gap-2"><i data-lucide="aperture" class="w-5 h-5 text-orange-500"></i> DaVinci Resolve</span>
+                <span class="text-xl font-bold text-white flex items-center gap-2"><i data-lucide="music" class="w-5 h-5 text-green-500"></i> Audition</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-film-black relative">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1601506521937-2433d3e9707d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Editing Setup" 
+                             class="rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute -bottom-6 -right-6 bg-film-card p-6 border-l-4 border-film-orange shadow-xl hidden md:block">
+                            <p class="font-cinematic text-2xl font-bold text-white">"Edit to Express,<br>Not to Impress."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2 class="font-cinematic text-4xl font-bold text-white mb-6 border-l-4 border-film-teal pl-4">ABOUT ME</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Hi, I'm <strong class="text-white">Rahim Ahmed</strong>. I am a filmmaker and editor based in the heart of <span class="text-film-teal">Dhaka</span>. With a background in visual arts and over 5 years of editing experience, I specialize in crafting narratives that evoke emotion.
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Whether it's a high-energy music video, a corporate documentary, or cinematic wedding highlights, I bring a distinct "film look" to every timeline. I don't just cut footage; I orchestrate rhythm, sound, and color to tell your story.
+                    </p>
+                    
+                    <!-- Skills Bars -->
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-white font-cinematic tracking-wide">Storytelling & Pacing</span>
+                                <span class="text-sm font-medium text-film-orange">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-film-orange h-1.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-white font-cinematic tracking-wide">Color Grading (DaVinci)</span>
+                                <span class="text-sm font-medium text-film-orange">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-film-orange h-1.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-white font-cinematic tracking-wide">Motion Graphics</span>
+                                <span class="text-sm font-medium text-film-orange">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-film-orange h-1.5 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <a href="#" class="text-film-teal hover:text-white transition-colors font-bold text-sm tracking-widest uppercase border-b border-film-teal pb-1">Download Resume <i data-lucide="download" class="inline w-4 h-4 ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showreel Section -->
+    <section id="showreel" class="py-24 bg-film-dark relative">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-cinematic text-4xl md:text-5xl font-bold text-white mb-2">2024 SHOWREEL</h2>
+            <p class="text-gray-500 mb-12 max-w-2xl mx-auto">A compilation of my best work across commercials, music videos, and short films.</p>
+            
+            <div class="relative w-full max-w-5xl mx-auto shadow-2xl shadow-film-orange/10 border border-white/10 p-2 bg-film-card rounded-sm reveal">
+                <div class="aspect-video-custom bg-black relative group cursor-pointer overflow-hidden">
+                    <!-- Placeholder Image for Video -->
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
+                         alt="Showreel Thumbnail" 
+                         class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-300">
+                    
+                    <!-- Play Button Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 rounded-full border-2 border-white/50 flex items-center justify-center bg-white/10 backdrop-blur-sm group-hover:scale-110 group-hover:bg-film-orange group-hover:border-film-orange transition-all duration-300">
+                            <i data-lucide="play" class="w-8 h-8 text-white ml-1"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Simulated UI elements for cinematic feel -->
+                    <div class="absolute bottom-6 left-6 text-left">
+                        <p class="text-white font-cinematic text-xl tracking-widest uppercase">Cinematic Reel</p>
+                        <p class="text-film-orange text-xs font-bold uppercase">4K | HDR</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-film-black">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-cinematic text-4xl font-bold text-white mb-4">MY SERVICES</h2>
+                <div class="w-20 h-1 bg-film-orange mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-film-card p-8 rounded-sm border border-white/5 hover:border-film-teal/50 transition-all duration-300 hover:-translate-y-2 group reveal">
+                    <div class="w-14 h-14 bg-film-dark rounded-full flex items-center justify-center mb-6 group-hover:bg-film-teal transition-colors">
+                        <i data-lucide="scissors" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 font-cinematic tracking-wide">Video Editing</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Offline and online editing. Creating the narrative flow, cutting raw footage, and ensuring perfect pacing for documentaries, vlogs, and commercials.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-film-card p-8 rounded-sm border border-white/5 hover:border-film-orange/50 transition-all duration-300 hover:-translate-y-2 group reveal" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-film-dark rounded-full flex items-center justify-center mb-6 group-hover:bg-film-orange transition-colors">
+                        <i data-lucide="palette" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 font-cinematic tracking-wide">Color Grading</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Transforming flat log footage into vibrant, cinematic visuals. Color correction, shot matching, and creative stylized looks using DaVinci Resolve.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-film-card p-8 rounded-sm border border-white/5 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 group reveal" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-film-dark rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-500 transition-colors">
+                        <i data-lucide="layers" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 font-cinematic tracking-wide">Motion Graphics</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Adding dynamic titles, lower thirds, logo animations, and VFX compositing to give your video that premium, broadcast-quality finish.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Portfolio -->
+    <section id="projects" class="py-20 bg-film-dark">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                <div>
+                    <h2 class="font-cinematic text-4xl font-bold text-white mb-2">LATEST PROJECTS</h2>
+                    <p class="text-gray-500">Explore my recent commercial and creative work.</p>
+                </div>
+                <!-- Filter Tabs (Visual Only for this demo) -->
+                <div class="flex space-x-4 mt-6 md:mt-0 text-sm font-medium">
+                    <button class="text-white border-b-2 border-film-orange pb-1">All</button>
+                    <button class="text-gray-500 hover:text-white transition-colors">Commercial</button>
+                    <button class="text-gray-500 hover:text-white transition-colors">Music Video</button>
+                    <button class="text-gray-500 hover:text-white transition-colors">Travel</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project Item 1 -->
+                <div class="group relative overflow-hidden rounded-sm cursor-pointer reveal hover-card-zoom">
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Project 1" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+                        <h3 class="text-xl font-bold text-white font-cinematic tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Mountain Trek Doc</h3>
+                        <p class="text-film-orange text-xs uppercase mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">Travel | Sound Design</p>
+                        <button class="mt-4 border border-white/30 rounded-full p-2 hover:bg-white hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Item 2 -->
+                <div class="group relative overflow-hidden rounded-sm cursor-pointer reveal hover-card-zoom" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Project 2" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+                        <h3 class="text-xl font-bold text-white font-cinematic tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Neon Nights</h3>
+                        <p class="text-film-orange text-xs uppercase mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">Music Video | VFX</p>
+                        <button class="mt-4 border border-white/30 rounded-full p-2 hover:bg-white hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Item 3 -->
+                <div class="group relative overflow-hidden rounded-sm cursor-pointer reveal hover-card-zoom" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1533518463841-d62e1fc91373?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Project 3" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+                        <h3 class="text-xl font-bold text-white font-cinematic tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Tech Product Launch</h3>
+                        <p class="text-film-orange text-xs uppercase mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">Commercial | 3D Motion</p>
+                        <button class="mt-4 border border-white/30 rounded-full p-2 hover:bg-white hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Item 4 -->
+                <div class="group relative overflow-hidden rounded-sm cursor-pointer reveal hover-card-zoom">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Project 4" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+                        <h3 class="text-xl font-bold text-white font-cinematic tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Sufi Soul</h3>
+                        <p class="text-film-orange text-xs uppercase mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">Documentary | Color</p>
+                        <button class="mt-4 border border-white/30 rounded-full p-2 hover:bg-white hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                 <!-- Project Item 5 -->
+                 <div class="group relative overflow-hidden rounded-sm cursor-pointer reveal hover-card-zoom">
+                    <img src="https://images.unsplash.com/photo-1533518463841-d62e1fc91373?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Project 5" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+                        <h3 class="text-xl font-bold text-white font-cinematic tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Wedding Highlights</h3>
+                        <p class="text-film-orange text-xs uppercase mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">Event | Cinematic</p>
+                        <button class="mt-4 border border-white/30 rounded-full p-2 hover:bg-white hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                 <!-- Project Item 6 -->
+                 <div class="group relative overflow-hidden rounded-sm cursor-pointer reveal hover-card-zoom">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Project 6" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
+                        <h3 class="text-xl font-bold text-white font-cinematic tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Retro Gaming</h3>
+                        <p class="text-film-orange text-xs uppercase mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">YouTube | Fast Paced</p>
+                        <button class="mt-4 border border-white/30 rounded-full p-2 hover:bg-white hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block text-white font-cinematic tracking-wider border-b border-film-orange hover:text-film-orange transition-colors pb-1">VIEW ALL PROJECTS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-film-black bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-opacity-5">
+        <div class="container mx-auto px-4">
+            <h2 class="font-cinematic text-4xl font-bold text-center text-white mb-16 reveal">CLIENT STORIES</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Review 1 -->
+                <div class="bg-film-card p-8 rounded-sm relative reveal">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-film-dark text-opacity-50"></i>
+                    <p class="text-gray-300 italic mb-6">"Rahim completely transformed our raw travel footage into a documentary that looked like it belonged on Netflix. His sense of music and pacing is unmatched in Dhaka."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full border border-film-orange">
+                        <div>
+                            <h4 class="text-white font-bold font-cinematic tracking-wide">Tanvir Hasan</h4>
+                            <p class="text-xs text-gray-500 uppercase">Travel Vlogger</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-film-card p-8 rounded-sm relative reveal" style="transition-delay: 100ms;">
+                    <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-film-dark text-opacity-50"></i>
+                    <p class="text-gray-300 italic mb-6">"Fast communication and incredible color grading skills. He took our corporate interview and made it feel dynamic and engaging. Highly recommended!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="w-12 h-12 rounded-full border border-film-orange">
+                        <div>
+                            <h4 class="text-white font-bold font-cinematic tracking-wide">Sarah Khan</h4>
+                            <p class="text-xs text-gray-500 uppercase">Marketing Director, TechBD</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-film-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-cinematic text-4xl font-bold text-white mb-4">PACKAGES</h2>
+                <p class="text-gray-500">Transparent pricing for your video needs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Basic -->
+                <div class="bg-film-card p-8 rounded-sm border border-white/5 reveal hover:border-gray-500 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-400 font-cinematic tracking-widest uppercase mb-4">The Cut</h3>
+                    <div class="text-3xl font-bold text-white mb-6">৳5,000 <span class="text-sm font-normal text-gray-500">/ min</span></div>
+                    <ul class="space-y-4 mb-8 text-gray-400 text-sm">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Basic Cuts & Trimming</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Simple Transitions</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Basic Color Correction</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 1 Revision</li>
+                    </ul>
+                    <a href="#contact" class="block text-center w-full py-3 border border-white/20 text-white hover:bg-white hover:text-black transition-all font-cinematic tracking-wider text-sm">SELECT</a>
+                </div>
+
+                <!-- Standard (Highlighted) -->
+                <div class="bg-film-card p-8 rounded-sm border border-film-orange relative transform md:-translate-y-4 shadow-2xl shadow-film-orange/10 reveal" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-film-orange text-white text-xs font-bold px-3 py-1 uppercase tracking-widest">Most Popular</div>
+                    <h3 class="text-xl font-bold text-film-orange font-cinematic tracking-widest uppercase mb-4">Cinematic</h3>
+                    <div class="text-3xl font-bold text-white mb-6">৳10,000 <span class="text-sm font-normal text-gray-500">/ min</span></div>
+                    <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-orange"></i> Advanced Sound Design</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-orange"></i> Color Grading (Log/Raw)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-orange"></i> Motion Graphics Titles</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-orange"></i> 3 Revisions</li>
+                    </ul>
+                    <a href="#contact" class="block text-center w-full py-3 bg-film-orange text-white hover:bg-white hover:text-black transition-all font-cinematic tracking-wider text-sm font-bold shadow-lg shadow-film-orange/30">SELECT</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="bg-film-card p-8 rounded-sm border border-white/5 reveal hover:border-gray-500 transition-colors" style="transition-delay: 200ms;">
+                    <h3 class="text-xl font-bold text-film-teal font-cinematic tracking-widest uppercase mb-4">Commercial</h3>
+                    <div class="text-3xl font-bold text-white mb-6">Custom <span class="text-sm font-normal text-gray-500">Quote</span></div>
+                    <ul class="space-y-4 mb-8 text-gray-400 text-sm">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-teal"></i> Full Production Support</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-teal"></i> VFX & Compositing</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-teal"></i> Dedicated Project Manager</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-film-teal"></i> Unlimited Revisions</li>
+                    </ul>
+                    <a href="#contact" class="block text-center w-full py-3 border border-white/20 text-white hover:bg-film-teal hover:text-white transition-all font-cinematic tracking-wider text-sm">CONTACT ME</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-film-black relative overflow-hidden">
+        <!-- Background Accents -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-film-orange/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-film-teal/10 rounded-full blur-[100px]"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 bg-film-card p-8 md:p-12 rounded-sm border border-white/5 shadow-2xl reveal">
+                
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="font-cinematic text-3xl font-bold text-white mb-6">LET'S CREATE MAGIC</h2>
+                    <p class="text-gray-400 mb-8">Ready to start your next project? Fill out the form or reach out directly.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-film-dark p-3 rounded-full text-film-orange"><i data-lucide="mail" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Email</h4>
+                                <p class="text-gray-400 text-sm">hello@rahimahmed.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-film-dark p-3 rounded-full text-film-teal"><i data-lucide="phone" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Phone/WhatsApp</h4>
+                                <p class="text-gray-400 text-sm">+880 1712 345 678</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-film-dark p-3 rounded-full text-gray-300"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Studio</h4>
+                                <p class="text-gray-400 text-sm">Gulshan 1, Dhaka, Bangladesh</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="https://www.facebook.com" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-film-orange hover:border-film-orange transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="https://www.instagram.com" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-pink-600 hover:border-pink-600 transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="https://www.linkedin.com" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-blue-600 hover:border-blue-600 transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="https://www.youtube.com" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-red-600 hover:border-red-600 transition-all"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form onsubmit="event.preventDefault(); alert('Message sent successfully! Rahim will contact you soon.');" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Name</label>
+                        <input type="text" class="w-full bg-film-black border border-white/10 p-3 rounded-sm text-white focus:outline-none focus:border-film-orange transition-colors" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Email</label>
+                        <input type="email" class="w-full bg-film-black border border-white/10 p-3 rounded-sm text-white focus:outline-none focus:border-film-orange transition-colors" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Project Type</label>
+                        <select class="w-full bg-film-black border border-white/10 p-3 rounded-sm text-white focus:outline-none focus:border-film-orange transition-colors">
+                            <option>Commercial</option>
+                            <option>Music Video</option>
+                            <option>Wedding</option>
+                            <option>Documentary</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Message</label>
+                        <textarea rows="4" class="w-full bg-film-black border border-white/10 p-3 rounded-sm text-white focus:outline-none focus:border-film-orange transition-colors" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-film-orange text-white font-cinematic font-bold tracking-widest py-4 hover:bg-white hover:text-black transition-all duration-300">SEND MESSAGE</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-white/10">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-cinematic text-2xl font-bold text-white mb-2">Rahim<span class="text-film-orange">.Edit</span></h2>
+            <p class="text-gray-600 text-sm mb-4">© 2024 Built By <a href="https://www.facebook.com/profile.php?id=100063808086007"><u>OcaByte</u></a>. All Rights Reserved.</p>
+            <div class="text-xs text-gray-700">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a> • 
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Sticky Navbar effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.replace('bg-film-black/90', 'bg-black/95');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.replace('bg-black/95', 'bg-film-black/90');
+            }
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
